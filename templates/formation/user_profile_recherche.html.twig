@@ -1,0 +1,84 @@
+{% extends 'dash/index.html.twig' %}
+
+{% block content %} 
+    <h1>    </h1>
+{% endblock %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des utilisateurs</title>
+</head>
+<body>
+{% if inscriptions is not empty %}
+    <h1 style="text-align: center; font-family: Arial, sans-serif; color: #333333;">Liste des formations de {{ inscriptions[0].userNom }}</h1>
+{% else %}
+    <h1 style="text-align: center; font-family: Arial, sans-serif; color: #333333;">Aucune inscription trouvée</h1>
+{% endif %} 
+
+<table style="width: 80%; margin: 30px auto; border: 1px solid #ddd; border-collapse: collapse; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+    <thead style="background-color: #007BFF; color: white; font-family: Arial, sans-serif;">
+        <tr>
+            <th style="padding: 12px 20px; text-align: left;">ID</th>
+            <th style="padding: 12px 20px; text-align: left;">Nom</th>
+            <th style="padding: 12px 20px; text-align: left;">Email</th>
+            <th style="padding: 12px 20px; text-align: left;">Date d'inscription</th>
+            <th style="padding: 12px 20px; text-align: left;">Numéro de téléphone</th>
+            <th style="padding: 12px 20px; text-align: left;">Nom Formation</th>
+            <th style="padding: 12px 20px; text-align: left;">Évaluer</th> <!-- Nouvelle colonne pour le bouton Évaluer -->
+        </tr>
+    </thead>
+    <tbody style="font-family: Arial, sans-serif;">
+        {% for inscription in inscriptions %}  <!-- Utilisation de 'inscriptions' plutôt que 'users' -->
+            <tr style="background-color: #f9f9f9; border-bottom: 1px solid #ddd;">
+
+                <td style="padding: 12px 20px;">{{ inscription.userId }}</td>
+                <td style="padding: 12px 20px;">{{ inscription.userNom }}</td>
+                <td style="padding: 12px 20px;">{{ inscription.userAdresse }}</td>
+                <td style="padding: 12px 20px;">{{ inscription.dateInscription ? inscription.dateInscription|date('d/m/Y') : 'Non renseignée' }}</td>
+                <td style="padding: 12px 20px;">{{ inscription.userNumero ? inscription.userNumero : 'Non renseigné' }}</td>
+                <td style="padding: 12px 20px;">{{ inscription.formationNom ? inscription.formationNom : 'Non renseignée' }}</td>
+                <td style="padding: 12px 20px; text-align: center;">
+                    <!-- Bouton Évaluer pour chaque utilisateur -->
+                    <a href="{{ path('app_evaluation', {'id': inscription.id}) }}" style="text-decoration: none;">
+                        <button style="padding: 5px 15px; background-color: #FF5733; color: white; border: none; border-radius: 5px; font-size: 14px; cursor: pointer;">
+                            Évaluer
+                        </button>
+                    </a>
+
+                    <!-- Formulaire pour supprimer une inscription spécifique -->
+                    <form action="{{ path('app_inscription_delete', {'id': inscription.id}) }}" method="POST" style="display:inline;">
+                        <!-- Champs cachés pour conserver les paramètres de recherche -->
+                        <input type="hidden" name="search" value="{{ searchTerm }}">
+                        <input type="hidden" name="userNom" value="{{ userNom }}">
+                        <button type="submit" style="padding: 5px 15px; background-color: #DC3545; color: white; border: none; border-radius: 5px; font-size: 14px; cursor: pointer;">
+                            Supprimer
+                        </button>
+                    </form>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr style="text-align: center;">
+                <td colspan="6" style="padding: 12px 20px; color: #999; font-style: italic;">Aucune inscription trouvée.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Bouton pour rediriger vers la page app_afficherformation -->
+<div style="text-align: center; margin-top: 20px;">
+    <a href="{{ path('app_afficherformation') }}" style="text-decoration: none;">
+        <button style="padding: 10px 20px; background-color: #FF0000; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+            Retour vers les formations
+        </button>
+    </a>
+</div>
+
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{# templates/user/edit_profile.html.twig #}
+
+<h1>Modifier mon Profil</h1>
+
+{{ form_start(form) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.password) }}
+    {{ form_row(form.birthdate) }}
+    {{ form_row(form.address) }}
+    {{ form_row(form.phone) }}
+    {{ form_row(form.profilePicture) }}
+
+    <button type="submit">Sauvegarder</button>
+{{ form_end(form) }}

@@ -1,0 +1,36 @@
+{% extends 'HOME.html.twig' %}
+
+{% block title %}Postuler au stage{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <h1 class="text-center mb-4">Postuler pour : {{ stage.titre }}</h1>
+    <p><strong>Entreprise :</strong> {{ stage.entreprise }}</p>
+    <p><strong>Localisation :</strong> {{ stage.localisation }}</p>
+    <p><strong>Description :</strong> {{ stage.description }}</p>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            {{ form_start(form, {'method': 'POST'}) }}
+                <div class="form-group">{{ form_row(form.nom) }}</div>
+                <div class="form-group">{{ form_row(form.email) }}</div>
+                <div class="form-group">{{ form_row(form.phone) }}</div>
+                <div class="form-group">{{ form_row(form.formation) }}</div>
+                <div class="form-group">{{ form_row(form.experiences_academiques) }}</div>
+                <div class="form-group">{{ form_row(form.competences) }}</div>
+                <div class="form-group">{{ form_row(form.lettre_motivation) }}</div>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success">Soumettre ma candidature</button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <a href="{{ path('app_homestage') }}" class="btn btn-secondary mt-4">Retour à la liste des stages</a>
+</div>
+{% endblock %}

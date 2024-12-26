@@ -1,0 +1,218 @@
+
+{% extends 'home.html.twig' %}
+
+
+{% block body %}
+
+   
+    <section class="categories-section section-padding" id="categories-section">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <!-- Titre principal -->
+            <div class="col-lg-12 col-12 text-center">
+                <h2 class="mb-5"><span>Clubs</span></h2>
+            </div>
+
+            <!-- Boucle pour afficher chaque club -->
+            {% for club in clubs %}
+            <div class="col-lg-2 col-md-4 col-6">
+                <div class="categories-block">
+                    <!-- Nom du club en lien -->
+                    <a href="#" 
+                       class="d-flex flex-column justify-content-center align-items-center h-100 club-link" 
+                       data-id="{{ club.id }}"
+                       data-description="{{ club.description }}" 
+                       data-date="{{ club.dateDeCreation|date('Y-m-d') }}"
+                       data-type="{{ club.type }}">
+                        <i class="categories-icon bi-people"></i>
+                        <!-- Nom du club -->
+                        <small class="categories-block-title">{{ club.nom }}</small>
+                    </a>
+                </div>
+            </div>
+            <!-- Conteneur pour afficher les détails dynamiquement -->
+            <div id="club-details-{{ club.id }}" class="club-details mt-5 text-center" style="display: none;">
+                <h3 id="club-name-{{ club.id }}"></h3>
+                <p id="club-type-{{ club.id }}"></p>
+                <p id="club-description-{{ club.id }}"></p>
+                <p id="club-date-{{ club.id }}"></p>
+
+                <!-- Bouton pour rejoindre -->
+                <form method="POST" action="{{ path('club_join', { id: club.id }) }}">
+                    <button type="submit" class="btn btn-success">Rejoindre</button>
+                </form>
+                            </div>
+            {% else %}
+            <!-- Si aucun club n'est trouvé -->
+            <div class="col-12 text-center">
+                <p>Aucun club trouvé.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{%block js%}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const clubLinks = document.querySelectorAll(".club-link");
+
+    // Écouteur d'événements pour chaque lien de club
+    clubLinks.forEach(link => {
+        link.addEventListener("click", function (event) {
+            event.preventDefault(); // Empêche le comportement par défaut du lien
+
+            // Récupération des données du club
+            const id = this.getAttribute("data-id");
+            const name = this.querySelector(".categories-block-title").textContent;
+            const description = this.getAttribute("data-description");
+            const date = this.getAttribute("data-date");
+            const type = this.getAttribute("data-type");
+
+            // Sélectionner dynamiquement le conteneur spécifique du club
+            const detailsContainer = document.getElementById(`club-details-${id}`);
+            const clubName = document.getElementById(`club-name-${id}`);
+            const clubDescription = document.getElementById(`club-description-${id}`);
+            const clubDate = document.getElementById(`club-date-${id}`);
+            const clubType = document.getElementById(`club-type-${id}`);
+            
+
+            // Mettre à jour les détails du club
+            clubName.textContent = name;
+            clubDescription.textContent = "Description : " + description;
+            clubDate.textContent = "Date de création : " + date;
+            clubType.textContent = "Type de club : " + type;
+            
+
+            // Afficher le conteneur des détails
+            detailsContainer.style.display = "block";
+        });
+    });
+});
+</script>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/counter.js"></script>
+<script src="js/custom.js"></script>
+{% endblock %}
+
+    
+
+<style>
+    /* Couleurs principales */
+    :root {
+        --primary-color: #5a3e92; /* Violet */
+        --secondary-color: #3ec6e7; /* Bleu turquoise */
+        --background-light: #f9f9fc; /* Couleur de fond légère */
+        --text-dark: #333; /* Texte sombre */
+    }
+    
+    /* Section principale */
+    .categories-section {
+        background-color: var(--background-light);
+        padding: 60px 0;
+    }
+    
+    .categories-section h2 {
+        color: var(--primary-color);
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        text-transform: uppercase;
+    }
+    
+    /* Bloc de chaque club */
+    .categories-block {
+        background-color: #ffffff;
+        border: 2px solid var(--primary-color);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .categories-block:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Icône des clubs */
+    .categories-icon {
+        font-size: 3rem;
+        color: var(--secondary-color);
+        margin-bottom: 10px;
+        transition: color 0.3s ease;
+    }
+    
+    .categories-block:hover .categories-icon {
+        color: var(--primary-color);
+    }
+    
+    /* Titre du club */
+    .categories-block-title {
+        font-size: 1rem;
+        font-weight: bold;
+        color: var(--text-dark);
+        text-transform: uppercase;
+        margin-top: 10px;
+    }
+    
+    /* Conteneur des détails du club */
+    .club-details {
+        background-color: var(--primary-color);
+        color: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .club-details h3 {
+        color: var(--secondary-color);
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+    
+    .club-details p {
+        font-size: 1rem;
+        margin-bottom: 10px;
+        color: #f1f1f1;
+    }
+    
+    /* Bouton "Rejoindre" */
+    .btn-success {
+        background-color: var(--primary-color);
+        color: #ffffff;
+        border: none;
+        border-radius: 25px;
+        padding: 10px 20px;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    
+    .btn-success:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn-success:active {
+        background-color: #2da8c8; /* Bleu turquoise foncé */
+        transform: translateY(2px);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Texte si aucun club n'est trouvé */
+    .col-12 p {
+        font-size: 1.2rem;
+        color: var(--primary-color);
+        font-weight: bold;
+        text-align: center;
+    }
+    
+
+</style>
+     
+{% endblock %}

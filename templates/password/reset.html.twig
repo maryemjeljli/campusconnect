@@ -1,0 +1,23 @@
+{% extends 'base_form.html.twig' %}
+
+{% block title %}Réinitialisation du mot de passe{% endblock %}
+
+{% block body %}
+    <h1>Réinitialisation du mot de passe</h1>
+
+    <p>Pour réinitialiser votre mot de passe, veuillez cliquer sur ce lien : <a href="{{ url }}">Réinitialiser le mot de passe</a></p>
+
+    <form method="POST">
+        <div class="form-group">
+            <label for="password">Nouveau mot de passe :</label>
+            <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                class="form-control" 
+                required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Réinitialiser le mot de passe</button>
+    </form>
+{% endblock %}

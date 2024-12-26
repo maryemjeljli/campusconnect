@@ -1,0 +1,129 @@
+{% extends 'dash/index.html.twig' %}
+
+{% block title %}Gestion des Stages et Types de Stage{% endblock %}
+
+{% block body %}
+<h1 class="text-center mt-4">Gestion des Stages et Types de Stage</h1>
+
+<div class="container mt-4">
+    <!-- Formulaires d'ajout -->
+    <div class="row mb-5">
+        <div class="col-md-6">
+            <h2>Ajouter un Type de Stage</h2>
+            {{ form_start(typestage_form) }}
+                {{ form_widget(typestage_form) }}
+                <button class="btn btn-success mt-2" type="submit">Ajouter</button>
+            {{ form_end(typestage_form) }}
+        </div>
+
+        <div class="col-md-6">
+            <h2>Ajouter un Stage</h2>
+            {{ form_start(stage_form) }}
+                {{ form_widget(stage_form) }}
+                <button class="btn btn-primary mt-2" type="submit">Ajouter</button>
+            {{ form_end(stage_form) }}
+        </div>
+    </div>
+
+    <!-- Liste des Types de Stage -->
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Liste des Types de Stage</h2>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for typestage in typestages %}
+                    <tr>
+                        <td>{{ typestage.id }}</td>
+                        <td>{{ typestage.type }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="2">Aucun type de stage trouvé.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Liste des Stages avec Type de Stage -->
+        <div class="col-md-6">
+            <h2>Liste des Stages</h2>
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Type de Stage</th>
+                        <th>Titre</th>
+                        <th>Domaine</th>
+                        <th>Description</th>
+                        <th>Entreprise</th>
+                        <th>Localisation</th>
+                        <th>Date de Début</th>
+                        <th>Date de Fin</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for stage in stages %}
+                    <tr>
+                        <td>{{ stage.id }}</td>
+                        <td>{{ stage.typestage ? stage.typestage.type : 'Non défini' }}</td>
+                        <td>{{ stage.titre }}</td>
+                        <td>{{ stage.domaine }}</td>
+                        <td>{{ stage.description }}</td>
+                        <td>{{ stage.entreprise }}</td>
+                        <td>{{ stage.localisation }}</td>
+                        <td>{{ stage.datededebut ? stage.datededebut|date('Y-m-d') : '' }}</td>
+                        <td>{{ stage.datedefin ? stage.datedefin|date('Y-m-d') : '' }}</td>
+                        <td>
+                            <a href="{{ path('app_stage_edit', {'id': stage.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                            <form action="{{ path('app_stage_delete', {'id': stage.id}) }}" method="post" style="display:inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ stage.id) }}"/>
+                                <button class="btn btn-danger btn-sm" type="submit">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="10">Aucun stage trouvé.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tableau des Statistiques des Stages par Société -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h2 class="text-center">Nombre de Stages Offerts par Société</h2>
+            {% if stageStats is defined and stageStats|length > 0 %}
+                <table class="table table-striped table-bordered mt-4">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Société</th>
+                            <th class="text-center">Nombre de Stages</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for stat in stageStats %}
+                        <tr>
+                            <td>{{ stat.company }}</td>
+                            <td class="text-center">{{ stat.stageCount }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="alert alert-danger text-center">Aucune donnée disponible pour les statistiques des stages.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

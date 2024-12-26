@@ -1,0 +1,169 @@
+
+{% extends 'formation/afficherformation.html.twig' %}
+{% block title %}Liste des Types de Formation{% endblock %}
+
+{% block body %}
+    <h1>Liste des Types de Formation</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Libellé</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for typeFormation in typeFormations %}
+                <tr>
+                    <td>{{ typeFormation.id }}</td>
+                    <td>{{ typeFormation.libelle }}</td>
+                    <td>
+                        <a href="{{ path('app_typeformation_supprimer', { id: typeFormation.id }) }}" 
+                           class="btn btn-danger" 
+                           onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce type de formation ?');">
+                            Supprimer
+                        </a>
+                    
+                        <a href="{{ path('app_typeformation_modifier', { id: typeFormation.id }) }}"  class="btn btn-sm btn-warning">
+                            Modifier
+                        </a>
+                    </td>    
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_typeformation_ajouter') }}" class="btn btn-primary">Ajouter un nouveau Type</a>
+
+    <style>
+    /* Couleurs principales */
+    :root {
+        --primary-color: #5a3e92; /* Violet */
+        --secondary-color: #3ec6e7; /* Bleu turquoise */
+        --background-light: #f9f9fc; /* Couleur de fond légère */
+        --text-dark: #333; /* Texte sombre */
+    }
+    
+    /* Conteneur principal centré */
+    .container {
+        max-width:; /* Réduction de la largeur */
+        margin: 0 auto; /* Centrer horizontalement */
+        background-color: var(--background-light);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Titre principal */
+    h1, h2 {
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        color: var(--primary-color);
+        text-align: center;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Carte de formulaire */
+    .card {
+        border: 2px solid var(--primary-color);
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Labels du formulaire */
+    .form-label {
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+    
+    /* Champs de formulaire */
+    .form-control {
+        border: 2px solid var(--secondary-color);
+        border-radius: 25px;
+        padding: 10px;
+        transition: border-color 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 5px var(--primary-color);
+    }
+    
+    /* Bouton principal */
+    .btn-success {
+        background-color: var(--primary-color);
+        color: #ffffff;
+        border: none;
+        border-radius: 25px;
+        padding: 10px 20px;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        width: 100%;
+    }
+    
+    .btn-success:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Tableau des clubs */
+    .table {
+        margin-top: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 2px solid var(--primary-color);
+    }
+    
+    .table thead {
+        background-color: var(--primary-color);
+        color: #ffffff;
+    }
+    
+    .table tbody tr:nth-child(even) {
+        background-color: var(--background-light);
+    }
+    
+    .table tbody tr:hover {
+        background-color: var(--secondary-color);
+        color: #ffffff;
+    }
+    
+    .table td, .table th {
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+    /* Boutons dans le tableau */
+    .btn-primary {
+        background-color: var(--secondary-color);
+        border: none;
+        color: #fff;
+        border-radius: 20px;
+        padding: 5px 10px;
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        background-color: var(--primary-color);
+    }
+    
+    .btn-danger {
+        background-color: #e74c3c;
+        border: none;
+        color: #fff;
+        border-radius: 20px;
+        padding: 5px 10px;
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn-danger:hover {
+        background-color: #c0392b;
+    }
+    
+</style>
+{% endblock %}

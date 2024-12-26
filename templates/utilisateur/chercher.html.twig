@@ -1,0 +1,50 @@
+{% extends 'utilisateur/index.html.twig' %}
+{% block content %} 
+<h1 style="text-align: center; font-family: Arial, sans-serif;">Liste des utilisateurs</h1>
+{% endblock %}
+
+{% block body %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des utilisateurs</title>
+</head>
+<body>
+    <table style="width: 80%; margin: 30px auto; border: 1px solid #ddd; border-collapse: collapse; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+        <thead style="background-color: #007BFF; color: white; font-family: Arial, sans-serif;">
+            <tr>
+                <th style="padding: 12px 20px; text-align: left;">ID</th>
+                <th style="padding: 12px 20px; text-align: left;">Nom</th>
+                <th style="padding: 12px 20px; text-align: left;">Email</th>
+                <th style="padding: 12px 20px; text-align: left;">Rôles</th>
+            </tr>
+        </thead>
+        <tbody style="font-family: Arial, sans-serif;">
+            {% for user in users %}
+                <tr style="background-color: #f9f9f9; border-bottom: 1px solid #ddd;">
+                    <td style="padding: 12px 20px;">{{ user.id }}</td>
+                    <td style="padding: 12px 20px;">{{ user.nom }}</td>
+                    <td style="padding: 12px 20px;">{{ user.email }}</td>
+                    <td style="padding: 12px 20px;">{{ user.roles|join(', ') }}</td> <!-- Affiche les rôles séparés par des virgules -->
+                </tr>
+            {% else %}
+                <tr style="text-align: center;">
+                    <td colspan="4" style="padding: 12px 20px; color: #999; font-style: italic;">Aucun utilisateur trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Bouton pour rediriger vers la page app_utilisateur -->
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{{ path('app_utilisateur') }}" style="text-decoration: none;">
+            <button style="padding: 10px 20px; background-color: #FF0000; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+                Retour 
+            </button>
+        </a>
+    </div>
+</body>
+</html>
+{% endblock %}

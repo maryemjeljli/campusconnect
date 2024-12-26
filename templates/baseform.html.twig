@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>CampusConnect</title>
+
+        <!-- CSS FILES -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;600;700&display=swap" rel="stylesheet">
+
+        <!-- Relatif au dossier public où se trouvent vos fichiers CSS -->
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/bootstrap-icons.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/owl.carousel.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/owl.theme.default.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/tooplate-gotto-job.css') }}" rel="stylesheet">
+    </head>
+
+    <body id="top">
+        <!-- Le reste de votre page -->
+    </body>
+</html>
+
+        
+<!--
+
+Tooplate 2134 CampusConnect Job
+
+https://www.tooplate.com/view/2134-gotto-job
+
+
+-->
+    </head>
+    
+    <body id="top">
+
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <img src="{{ asset('images/logo.png') }}" class="img-fluid logo-image">
+
+                    <div class="d-flex flex-column">
+                        <strong class="logo-text">CampusConnect</strong>
+                        <small class="logo-slogan">pour les étudiants</small>
+                    </div>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav align-items-center ms-lg-5">
+                       
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_home') }}">home</a>
+                        </li> 
+
+                        <li class="nav-item ms-lg-auto">
+                            <a class="nav-link" href="register.html">Register</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link custom-btn btn" href="/login">Login</a>
+                        </li>
+                        
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           
+            {{ app.user.nom }}
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/profile">Mon Compte</a></li>
+            <li><a class="dropdown-item" href="/logout">Se Déconnecter</a></li>
+                   <li><a class="dropdown-item" href="/password/forgot">Mot de passe oubliée</a></li>
+        </ul>
+    </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <main>
+
+            <section class="hero-section d-flex justify-content-center align-items-center">
+                <div class="section-overlay"></div>
+
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-6 col-12 mb-5 mb-lg-0">
+                            <div class="hero-section-text mt-5">
+                                <h6 class="text-white">Transforme ton potentiel en réussite ! Rejoins nos Evenements et prépare-toi à conquérir ton avenir avec des compétences qui font la différence.</h6>
+
+                                <h1 class="hero-title text-white mt-4 mb-4">Campus en ligne. <br> </h1>
+
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            {% block body %}
+            {% endblock %}
+        </main>
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="{{ asset('js/jquery.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+        <script src="{{ asset('js/counter.js') }}"></script>
+        <script src="{{ asset('js/custom.js') }}"></script>
+    </body>
+</html>
+
+

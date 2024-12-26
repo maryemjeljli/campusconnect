@@ -1,0 +1,97 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}
+Liste des utilisateurs
+{% endblock %}
+
+{% block content %}
+<div class="user-data m-b-30">
+    <h3 class="title-3 m-b-30">
+        <i class="zmdi zmdi-account-calendar"></i>Liste des utilisateurs
+    </h3>
+    <div class="filters m-b-45">
+        <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
+            <select class="js-select2" name="property">
+                <option selected="selected">Tous les utilisateurs</option>
+                <option value="">Admin</option>
+                <option value="">Utilisateurs normaux</option>
+            </select>
+            <div class="dropDownSelect2"></div>
+        </div>
+        <div class="rs-select2--dark rs-select2--sm rs-select2--border">
+            <select class="js-select2 au-select-dark" name="time">
+                <option selected="selected">All Time</option>
+                <option value="">By Month</option>
+                <option value="">By Day</option>
+            </select>
+            <div class="dropDownSelect2"></div>
+        </div>
+    </div>
+    <div class="table-responsive table-data">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>
+                        <label class="au-checkbox">
+                            <input type="checkbox">
+                            <span class="au-checkmark"></span>
+                        </label>
+                    </td>
+                    <td>Nom</td>
+                    <td>Rôle</td>
+                    <td>Statut</td>
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>
+                        <label class="au-checkbox">
+                            <input type="checkbox">
+                            <span class="au-checkmark"></span>
+                        </label>
+                    </td>
+                    <td>
+                        <div class="table-data__info">
+                            <h6>{{ user.nom }}</h6>
+                            <span>
+                                <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+                            </span>
+                        </div>
+                    </td>
+                 <td>
+    {% for role in user.roles %}
+        {% if role == 'ROLE_ADMIN' %}
+            <span class="badge badge-danger">Admin</span>
+        {% elseif role == 'ROLE_USER' %}
+            <span class="badge badge-primary">Utilisateur</span>
+        {% elseif role == 'ROLE_EDITOR' %}
+            <span class="badge badge-warning">Éditeur</span>
+        {% else %}
+            <span class="badge badge-secondary">{{ role }}</span>
+        {% endif %}
+    {% endfor %}
+</td>
+
+                    <td>
+                        <div class="rs-select2--trans rs-select2--sm">
+                            <select class="js-select2" name="property">
+                                <option {% if user.isBanned %}selected{% endif %}>Bannir</option>
+                                <option {% if user.isApproved %}selected{% endif %}>Approuvé</option>
+                            </select>
+                            <div class="dropDownSelect2"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <a href="{{ path('app_afficheuser', { id: user.id }) }}" class="btn btn-primary btn-sm">
+                            <i class="zmdi zmdi-edit"></i> Modifier
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

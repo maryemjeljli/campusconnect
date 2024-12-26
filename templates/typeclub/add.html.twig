@@ -1,0 +1,234 @@
+{% extends 'dash/index.html.twig' %}
+
+
+
+   
+       
+
+{% block body %}
+<style>
+/* Conteneur principal */
+.custom-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Titre */
+.custom-title {
+    font-family: 'Arial', sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #372066;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Tableau */
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1rem;
+    text-align: left;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.custom-table thead {
+    background-color: #5d4099;
+    color: #fff;
+    font-weight: bold;
+}
+
+.custom-table th, .custom-table td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-table tr:hover {
+    background-color: #f4f4f4;
+}
+
+.custom-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Boutons */
+.btn-edit {
+    background-color: #372066;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.btn-edit:hover {
+    background-color: #5d4099;
+    color: #fff;
+}
+
+.btn-delete {
+    background-color: #5d4099;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.btn-delete:hover {
+    background-color: #372066;
+    color: #fff;
+}
+
+/* Message si aucun type de club */
+.empty-message {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    margin-top: 20px;
+}
+
+/* Container principal */
+.custom-container {
+max-width: 800px;
+margin: 0 auto;
+}
+
+/* Titre général */
+.custom-title {
+font-family: 'Arial', sans-serif;
+font-weight: bold;
+font-size: 2rem;
+color: #5a3e92;
+text-align: center;
+margin-bottom: 30px;
+}
+
+/* Carte générale */
+.custom-card {
+border-radius: 15px;
+overflow: hidden;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-card-header {
+background: #9678d3;
+color: white;
+text-align: center;
+padding: 20px;
+font-size: 1.5rem;
+}
+
+.custom-card-body {
+padding: 20px;
+background: #f8f9fa;
+}
+
+/* Tableau */
+.custom-table {
+background: white;
+border-radius: 10px;
+overflow: hidden;
+}
+
+.custom-table th {
+background-color: #3ec6e7;
+color: white;
+text-align: center;
+}
+
+.custom-table tbody tr:hover {
+background-color: #f1f1f1;
+}
+
+/* Boutons */
+.btn-success {
+background-color: #3ec6e7;
+border: none;
+}
+
+.btn-warning {
+background-color: #ffc107;
+border: none;
+color: #fff;
+}
+
+.btn-danger {
+background-color: #dc3545;
+border: none;
+color: white;
+}
+
+.btn-sm {
+font-size: 0.85rem;
+padding: 5px 10px;
+}
+</style>
+<div class="container mt-5 custom-container">
+    <!-- Titre principal -->
+    <div class="custom-title">Ajouter un Type de Club</div>
+
+    <!-- Ajouter un type de club -->
+    <div class="card custom-card mb-5">
+        <div class="card-header custom-card-header">
+            Ajouter un Type de Club
+        </div>
+        <div class="card-body custom-card-body">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-success">Ajouter</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <!-- Liste des types de clubs -->
+    <div class="custom-container">
+        <!-- Titre principal -->
+        <div class="custom-title">Liste des Types de Clubs</div>
+    
+        <!-- Tableau des types de clubs -->
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Libellé</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for typeclub in types %}
+                    <tr>
+                        <td>{{ typeclub.id }}</td>
+                        <td>{{ typeclub.libelle }}</td>
+                        <td>
+                            <a href="{{ path('typeclub_edit', { id: typeclub.id }) }}" class="btn btn-edit">
+                                <i class="bi bi-pencil"></i> Modifier
+                            </a>
+                            <a href="{{ path('typeclub_delete', { id: typeclub.id }) }}" class="btn btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce type de club ?');">
+                                <i class="bi bi-trash"></i> Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="empty-message">Aucun type de club trouvé.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+
+
+{% endblock %}

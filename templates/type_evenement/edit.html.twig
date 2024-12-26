@@ -1,0 +1,25 @@
+{% extends 'dash/index.html.twig' %}
+
+{% block title %}Modifier le Type d'Événement{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Modifier le Type d'Événement</h1>
+
+    <div class="card shadow-sm p-4">
+        {{ form_start(form) }}
+        
+        <div class="mb-3">
+            {{ form_label(form.nom, 'Nom du Type d\'Événement') }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success">Mettre à jour</button>
+            <a href="{{ path('app_type_evenement_index') }}" class="btn btn-secondary">Retour</a>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}

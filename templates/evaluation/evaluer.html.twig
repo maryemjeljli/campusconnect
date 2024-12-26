@@ -1,0 +1,134 @@
+{% extends 'dash/index.html.twig' %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-header salma text-white text-center rounded-3">
+                    <h4 class="mb-0">Saisir une évaluation</h4>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <p>
+                            <strong>Participant :</strong> {{ inscription.userNom }}<br>
+                            <strong>Formation :</strong> {{ inscription.formationNom }}
+                        </p>
+                    </div>
+
+                    {{ form_start(form) }}
+
+                    <div class="mb-4">
+                        <div class="card shadow-sm border-0 rounded-3">
+                            <div class="card-header bg-info text-white rounded-3">
+                                <h5 class="mb-0">Participation</h5>
+                            </div>
+                            <div class="card-body">
+                                {{ form_row(form.participation, {'attr': {'class': 'rating-modern'}}) }}
+                                <small class="text-muted">Attribuez une note selon la participation active du participant.</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="card shadow-sm border-0 rounded-3">
+                            <div class="card-header bg-warning text-white rounded-3">
+                                <h5 class="mb-0">Rigueur</h5>
+                            </div>
+                            <div class="card-body">
+                                {{ form_row(form.rigueur, {'attr': {'class': 'rating-modern'}}) }}
+                                <small class="text-muted">Attribuez une note selon la ponctualité et l'application du participant.</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="card shadow-sm border-0 rounded-3">
+                            <div class="card-header bg-success text-white rounded-3">
+                                <h5 class="mb-0">Progression</h5>
+                            </div>
+                            <div class="card-body">
+                                {{ form_row(form.progression, {'attr': {'class': 'rating-modern'}}) }}
+                                <small class="text-muted">Attribuez une note selon les progrès constatés.</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ path('app_rechercher_inscription', {'userNom': inscription.userNom}) }}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Retour
+                        </a>
+                        <a href="{{ path('app_liste_evaluations', {'id': inscription.id}) }}" class="btn btn-primary">
+                            <i class="bi bi-list"></i> Voir les évaluations
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-check-circle"></i> Enregistrer
+                        </button>
+                    </div>
+
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+    .salma {
+    background-color: #6610f2;
+    }
+
+    .rating-modern {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+
+    .rating-modern input {
+        display: none;
+    }
+
+    .rating-modern label {
+        font-size: 1.5rem;
+        color: #ddd;
+        cursor: pointer;
+    }
+
+    .rating-modern input:checked ~ label,
+    .rating-modern label:hover,
+    .rating-modern label:hover ~ label {
+        color: #ffc107;
+    }
+
+    .card {
+        border-radius: 15px;
+    }
+
+    .card-header {
+        border-radius: 15px 15px 0 0;
+    }
+
+    .btn-outline-secondary {
+        border-color: #6610f2;
+        color: #6c757d;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #f8f9fa;
+    }
+
+    .btn btn-primary{
+        background-color: #33f7fa;
+    }
+
+    .btn-success {
+        background-color: #6610f2;
+        border-color: #6610f2;
+    }
+
+    .btn-success:hover {
+        background-color: #6610f2;
+    }
+</style>
+{% endblock %}

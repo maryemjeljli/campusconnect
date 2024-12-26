@@ -1,0 +1,106 @@
+{% extends 'dash/index.html.twig' %}
+
+
+
+
+{% block body %}
+<style>
+    /* Titre principal */
+    .custom-title {
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        color: #5a3e92;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Carte personnalisée */
+    .custom-card {
+        background-color: #ffffff;
+        border: 2px solid #5a3e92;
+        border-radius: 10px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+    }
+    
+    .custom-card-body {
+        padding: 20px;
+    }
+    
+    /* Label personnalisé */
+    .custom-label {
+        font-weight: bold;
+        color: #5a3e92;
+    }
+    
+    /* Champs de formulaire */
+    .custom-input {
+        border: 2px solid #3ec6e7;
+        border-radius: 25px;
+        padding: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.3s ease;
+    }
+    
+    .custom-input:focus {
+        border-color: #5a3e92;
+        outline: none;
+    }
+    
+    /* Bouton personnalisé */
+    .custom-btn {
+        background-color: #5a3e92;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .custom-btn:hover {
+        background-color: #3ec6e7;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    }
+    </style>
+      
+<div class="container mt-5">
+    <!-- Titre principal -->
+    <h2 class="custom-title text-center mb-4">Modifier le Type de Club</h2>
+
+    <!-- Formulaire de modification -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="custom-card">
+                <div class="custom-card-body">
+                    <!-- Début du formulaire -->
+                    {{ form_start(form) }}
+
+                    <div class="form-group mb-4">
+                        {{ form_label(form.libelle, 'Libellé', {'label_attr': {'class': 'custom-label'}}) }}
+                        {{ form_widget(form.libelle, {'attr': {'class': 'form-control custom-input'}}) }}
+                        {{ form_errors(form.libelle) }}
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn custom-btn">
+                            Enregistrer les modifications
+                        </button>
+                    </div>
+
+                    <!-- Fin du formulaire -->
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}
+
+

@@ -1,0 +1,366 @@
+{% extends 'base_user.html.twig' %}
+
+{% block title %}Gestion d'Utilisateur{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12">
+        <!-- Titre principal -->
+ <h3 class="title-5 m-b-35 text-center" style="margin-top: 30px;">Gestion d'Utilisateur</h3>
+
+
+        <!-- Conteneur principal des outils -->
+        <div class="table-data__tool">
+            <div class="table-data__tool-left">
+                <!-- Premier sélecteur -->
+                <div class="rs-select2--light rs-select2--md">
+                    <select class="js-select2" name="property">
+                        <option selected="selected">All Properties</option>
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                    </select>
+                </div>
+
+                <!-- Deuxième sélecteur -->
+                <div class="rs-select2--light rs-select2--sm">
+                    <select class="js-select2" name="time">
+                        <option selected="selected">Today</option>
+                        <option value="3days">3 Days</option>
+                        <option value="1week">1 Week</option>
+                    </select>
+                </div>
+
+                <!-- Bouton de filtrage -->
+                <button class="au-btn-filter">
+                    <i class="zmdi zmdi-filter-list"></i> Filters
+                </button>
+            </div>
+
+            <!-- Bouton pour ajouter un utilisateur -->
+            <div class="table-data__tool-right">
+                <a href="{{ path('app_adduser') }}" class="au-btn au-btn-icon au-btn--green au-btn--small">
+                    <i class="zmdi zmdi-plus"></i> Ajouter un utilisateur
+                </a>
+            </div>
+        </div>
+
+        <!-- Conteneur du tableau -->
+        <div class="table-responsive table-responsive-data2" style="margin-top: 20px;">
+            <table class="table table-data2 table-bordered">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th>
+                            <label class="au-checkbox">
+                                <input type="checkbox">
+                                <span class="au-checkmark"></span>
+                            </label>
+                        </th>
+                        <th>Identifiant</th>
+                        <th>Nom d'utilisateur</th>
+                        <th>Email</th>
+                        <th>Rôles</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr class="tr-shadow">
+                        <td>
+                            <label class="au-checkbox">
+                                <input type="checkbox">
+                                <span class="au-checkmark"></span>
+                            </label>
+                        </td>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.nom }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% for role in user.roles %}
+                                {% if role == 'ROLE_ADMIN' %}
+                                    <span class="badge badge-danger">Admin</span>
+                                {% elseif role == 'ROLE_USER' %}
+                                    <span class="badge badge-primary">Utilisateur</span>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Actions utilisateur">
+                                <a href="{{ path('app_updateuser', {'id': user.id}) }}" class="btn btn-primary btn-sm">
+                                    <i class="zmdi zmdi-edit"></i> Modifier
+                                </a>
+                                <form method="post" action="{{ path('admin_user_delete', {'id': user.id}) }}" style="display:inline-block">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="zmdi zmdi-delete"></i> Supprimer
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+ <h3 class="title-5 m-t-35 text-center">Historique des Actions</h3>
+<div class="row">
+    <div >
+        <!-- Section : Liste principale -->
+        <div class="user-data m-b-30">
+            <h3 class="title-3 m-b-30">
+                <i class="zmdi zmdi-account-calendar"></i>Liste des utilisateurs
+            </h3>
+            <div class="filters m-b-45">
+                <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
+                    <select class="js-select2" name="property">
+                        <option selected="selected">Tous les utilisateurs</option>
+                        <option value="admin">Admin</option>
+                        <option value="user">Utilisateurs normaux</option>
+                    </select>
+                    <div class="dropDownSelect2"></div>
+                </div>
+                <div class="rs-select2--dark rs-select2--sm rs-select2--border">
+                    <select class="js-select2 au-select-dark" name="time">
+                        <option selected="selected">All Time</option>
+                        <option value="month">By Month</option>
+                        <option value="day">By Day</option>
+                    </select>
+                    <div class="dropDownSelect2"></div>
+                </div>
+            </div>
+
+            <!-- Tableau des utilisateurs -->
+            <div class="table-responsive table-data">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>
+                                <label class="au-checkbox">
+                                    <input type="checkbox">
+                                    <span class="au-checkmark"></span>
+                                </label>
+                            </td>
+                            <td>Nom</td>
+                            <td>Rôle</td>
+                            <td>Statut</td>
+                            <td>Actions</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>
+                                <label class="au-checkbox">
+                                    <input type="checkbox">
+                                    <span class="au-checkmark"></span>
+                                </label>
+                            </td>
+                            <td>
+                                <div class="table-data__info">
+                                    <h6>{{ user.nom }}</h6>
+                                    <span>
+                                        <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                {% for role in user.roles %}
+                                    {% if role == 'ROLE_ADMIN' %}
+                                        <span class="badge badge-danger">Admin</span>
+                                    {% elseif role == 'ROLE_USER' %}
+                                        <span class="badge badge-primary">Utilisateur</span>
+                                    {% elseif role == 'ROLE_EDITOR' %}
+                                        <span class="badge badge-warning">Éditeur</span>
+                                    {% else %}
+                                        <span class="badge badge-secondary">{{ role }}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                       <td>
+            <!-- Sélecteur pour le statut -->
+            <select class="form-control" id="status_{{ user.id }}">
+                <option value="approved" {% if user.isApproved %}selected{% endif %}>Approuvé</option>
+                <option value="banned" {% if user.isBanned %}selected{% endif %}>Banni</option>
+            </select>
+        </td>
+        <td>
+            <!-- Bouton pour valider le changement de statut -->
+            <button class="btn btn-primary" onclick="updateStatus({{ user.id }})">Valider</button>
+        </td>
+    </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    /* Couleurs principales */
+    :root {
+        --primary-color: #5a3e92; /* Violet */
+        --secondary-color: #3ec6e7; /* Bleu turquoise */
+        --background-light: #f9f9fc; /* Couleur de fond légère */
+        --text-dark: #333; /* Texte sombre */
+    }
+    
+    /* Conteneur principal centré */
+    .container {
+        max-width: 800px; /* Réduction de la largeur */
+        margin: 0 auto; /* Centrer horizontalement */
+        background-color: var(--background-light);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Titre principal */
+    h1, h2 {
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        color: var(--primary-color);
+        text-align: center;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Carte de formulaire */
+    .card {
+        border: 2px solid var(--primary-color);
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Labels du formulaire */
+    .form-label {
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+    
+    /* Champs de formulaire */
+    .form-control {
+        border: 2px solid var(--secondary-color);
+        border-radius: 25px;
+        padding: 10px;
+        transition: border-color 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 5px var(--primary-color);
+    }
+    
+    /* Bouton principal */
+    .btn-success {
+        background-color: var(--primary-color);
+        color: #ffffff;
+        border: none;
+        border-radius: 25px;
+        padding: 10px 20px;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        width: 100%;
+    }
+    
+    .btn-success:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Tableau des clubs */
+    .table {
+        margin-top: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 2px solid var(--primary-color);
+    }
+    
+    .table thead {
+        background-color: var(--primary-color);
+        color: #ffffff;
+    }
+    
+    .table tbody tr:nth-child(even) {
+        background-color: var(--background-light);
+    }
+    
+    .table tbody tr:hover {
+        background-color: var(--secondary-color);
+        color: #ffffff;
+    }
+    
+    .table td, .table th {
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+    /* Boutons dans le tableau */
+    .btn-primary {
+        background-color: var(--secondary-color);
+        border: none;
+        color: #fff;
+        border-radius: 20px;
+        padding: 5px 10px;
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        background-color: var(--primary-color);
+    }
+    
+    .btn-danger {
+        background-color: #e74c3c;
+        border: none;
+        color: #fff;
+        border-radius: 20px;
+        padding: 5px 10px;
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn-danger:hover {
+        background-color: #c0392b;
+    }
+    
+</style>
+{% block javascripts %}
+    <script>
+        function updateStatus(userId) {
+            // Récupérer la valeur du statut sélectionné
+            var status = document.getElementById('status_' + userId).value;
+
+            // Déterminer l'URL pour l'API (les routes pour approuver ou bannir)
+            var url = status === 'approved' ? '/users/' + userId + '/approve' : '/users/' + userId + '/ban';
+
+            // Créer la requête AJAX
+            fetch(url, {
+                method: 'PUT', // Utiliser la méthode PUT
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest' // Indiquer que c'est une requête Ajax
+                },
+                body: JSON.stringify({}) // Corps vide car l'ID est déjà dans l'URL
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Afficher un message de succès ou d'erreur
+                alert(data.message);
+
+                // Tu peux également actualiser l'état ou rediriger si nécessaire
+                location.reload(); // Recharge la page pour refléter les changements (optionnel)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Une erreur est survenue');
+            });
+        }
+    </script>
+{% endblock %}
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}Modifier le Stage{% endblock %}
+
+{% block content %} {# Block `content` from `dashboard.html.twig` #}
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Modifier le Stage</h1>
+
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button class="btn btn-primary mt-3" type="submit">Sauvegarder les modifications</button>
+        {{ form_end(form) }}
+
+        <a href="{{ path('app_stage_show') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+    </div>
+{% endblock %}

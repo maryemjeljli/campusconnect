@@ -1,0 +1,39 @@
+{# templates/statistics/index.html.twig #}
+{% extends 'base_stat.html.twig' %}
+
+{% block body %}
+    <h1>Statistiques sur le Genre des Utilisateurs</h1>
+
+    <div>
+        <p>Hommes : {{ maleCount }}</p>
+        <p>Femmes : {{ femaleCount }}</p>
+    </div>
+
+    <h3>Graphique des Utilisateurs par Genre</h3>
+    <canvas id="genderChart" width="400" height="200"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('genderChart').getContext('2d');
+        var genderChart = new Chart(ctx, {
+            type: 'pie', // Type de graphique (ici un graphique à secteurs)
+            data: {
+                labels: ['Homme', 'Femme'],
+                datasets: [{
+                    label: 'Nombre d\'Utilisateurs',
+                    data: [{{ maleCount }}, {{ femaleCount }}], // Données des statistiques
+                    backgroundColor: ['#36a2eb', '#ff6384'], // Couleurs pour chaque section
+                    hoverBackgroundColor: ['#36a2eb', '#ff6384']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                },
+            }
+        });
+    </script>
+{% endblock %}

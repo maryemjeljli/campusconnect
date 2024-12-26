@@ -1,0 +1,34 @@
+{% extends 'dash/index.html.twig' %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h2 class="mb-4">Liste des Inscriptions</h2>
+
+        {% if inscriptions|length > 0 %}
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                        <th>Événement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inscription in inscriptions %}
+                        <tr>
+                            <td>{{ inscription.id }}</td>
+                            <td>{{ inscription.nom }}</td>
+                            <td>{{ inscription.email }}</td>
+                            <td>{{ inscription.telephone }}</td>
+                            <td>{{ inscription.evenement.titre }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucune inscription trouvée.</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'dash/index.html.twig' %}
+{% block title %}Liste des évaluations{% endblock %}
+
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Liste des évaluations pour {{ userNom }}</h1>
+
+        {# Si des évaluations existent, affichez-les #}
+        {% if evaluations is not empty %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nom Formation</th>
+                        <th>Participation</th>
+                        <th>Rigueur</th>
+                        <th>Progression</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for evaluation in evaluations %}
+                        <tr>
+                            <td>{{ evaluation.inscription.formationNom }}</td>
+                            <td>{{ evaluation.participation }}</td>
+                            <td>{{ evaluation.rigueur }}</td>
+                            <td>{{ evaluation.progression }}</td>
+                            <td>
+                                {# Formulaire de suppression pour chaque évaluation #}
+                                <form method="POST" action="{{ path('app_evaluation_delete', { 'userNom': userNom, 'id': evaluation.id }) }}" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="alert alert-info">
+                Aucune évaluation trouvée pour {{ userNom }}.
+            </div>
+        {% endif %}
+
+        {# Bouton de retour vers la page de saisie d'évaluation #}
+        <div class="mt-4">
+            <a href="{{ path('app_evaluation', { 'id': inscription.id }) }}" class="btn btn-secondary">
+                Retour
+            </a>
+        </div>
+    </div>
+{% endblock %}

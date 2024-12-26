@@ -1,0 +1,28 @@
+{% extends 'dash/index.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>Modifier l'Événement</h1>
+
+        {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+            {{ form_row(form.titre) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.dateDebut) }}
+            {{ form_row(form.dateFin) }}
+            {{ form_row(form.type) }}
+
+            <div class="mb-3">
+                {{ form_label(form.image) }}
+                {{ form_widget(form.image) }}
+                {% if evenement.image %}
+                    <p>Image actuelle :</p>
+                    <img src="{{ asset('uploads/' ~ evenement.image) }}" alt="Image actuelle" class="img-thumbnail" style="max-width: 200px;">
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        {{ form_end(form) }}
+
+        <a href="{{ path('app_evenement_index') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,76 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use App\Entity\Membership;
+
+use App\Entity\Club;
+use App\Form\MembershipType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+
+/*class MembershipController extends AbstractController
+{
+    #[Route('/club/join/{id}', name: 'club_join', methods: ['POST'])]
+    public function joinClub(
+        Club $club,
+        EntityManagerInterface $entityManager
+    ): Response {
+        // Vérifier si le club existe
+        $user = $this->getUser();
+        if (!$user) {
+            $this->addFlash('warning', 'Vous devez être connecté pour rejoindre un club.');
+            return $this->redirectToRoute('app_signup');
+        }
+    
+        // Crée une nouvelle adhésion
+        $membership = new Membership();
+        $membership->setStudent($user);
+        $membership->setClub($club);
+        $membership->setStudentEmail($user->getEmail());
+        $membership->setPhoneNumber($user->getPhone());
+        $membership->setJoinedAt(new \DateTime());
+    
+        // Enregistre l'adhésion dans la base de données
+        $entityManager->persist($membership);
+        $entityManager->flush();
+    
+        // Affiche un message de succès
+        $this->addFlash('success', 'Votre demande pour rejoindre le club "' . $club->getNom() . '" a été envoyée avec succès.');
+    
+        // Redirige vers la page des clubs
+        return $this->redirectToRoute('club_index');
+    }
+    
+    #[Route('/club/accept/{id}', name: 'club_accept_membership', methods: ['POST'])]
+    public function acceptMembership(Membership $membership, EntityManagerInterface $entityManager): Response
+    {
+        // Mise à jour de l'adhésion pour marquer comme acceptée (par exemple, changer un champ de statut)
+        $membership->setStatus('accepted');
+        $entityManager->flush();
+    
+        $this->addFlash('success', 'L\'adhésion a été acceptée.');
+    
+        return $this->redirectToRoute('club_membership', ['id' => $membership->getClub()->getId()]);
+    }
+    
+    #[Route('/club/reject/{id}', name: 'club_reject_membership', methods: ['POST'])]
+    public function rejectMembership(Membership $membership, EntityManagerInterface $entityManager): Response
+    {
+        // Mise à jour de l'adhésion pour marquer comme rejetée
+        $membership->setStatus('rejected');
+        $entityManager->flush();
+    
+        $this->addFlash('warning', 'L\'adhésion a été rejetée.');
+    
+        return $this->redirectToRoute('club_membership', ['id' => $membership->getClub()->getId()]);
+    }
+    
+
+
+    
+
+}*/

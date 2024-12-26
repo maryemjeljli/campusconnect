@@ -1,0 +1,146 @@
+{% extends 'base_form.html.twig' %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h2 class="text-center text-primary mb-4">Ajouter un Utilisateur</h2>
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            
+            <div class="form-group mb-4">
+                <label for="id" class="form-label">Identifiant</label>
+                {{ form_widget(form.id, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.id) }}
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="nom" class="form-label">Nom d'utilisateur</label>
+                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.nom) }}
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="email" class="form-label">Email</label>
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.email) }}
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="password" class="form-label">Mot de passe</label>
+                {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.password) }}
+            </div>
+
+       
+
+        <div class="form-group">
+            {{ form_label(form.roles) }}
+            {{ form_widget(form.roles, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.roles) }}
+        </div>
+       
+
+                    <div class="form-group">
+                        {{ form_label(form.birthdate, null, {'label_attr': {'class': 'form-control-label'}}) }}
+                        {{ form_widget(form.birthdate, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.birthdate) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.phone, null, {'label_attr': {'class': 'form-control-label'}}) }}
+                        {{ form_widget(form.phone, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.phone) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(form.sexe, null, {'label_attr': {'class': 'form-control-label'}}) }}
+                        {{ form_widget(form.sexe, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.sexe) }}
+                    </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <i class="fa fa-dot-circle-o"></i> Soumettre
+                </button>
+                <a href="{{ path('app_utilisateur') }}" class="btn btn-secondary btn-sm">
+                    <i class="fa fa-arrow-left"></i> Retour
+                </a>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Couleurs principales */
+    :root {
+        --primary-color: #5a3e92; /* Violet */
+        --secondary-color: #3ec6e7; /* Bleu turquoise */
+        --background-light: #f9f9fc; /* Couleur de fond légère */
+        --text-dark: #333; /* Texte sombre */
+    }
+
+    /* Conteneur principal centré */
+    .container {
+        max-width: ; /* Largeur augmentée pour plus de confort */
+        margin: 0 auto;
+        padding: 30px;
+        background-color: var(--background-light);
+        border-radius: 10px;
+    }
+
+    /* Titre principal */
+    h2 {
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    /* Champs de formulaire */
+    .form-label {
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+
+    .form-control {
+        border: 2px solid var(--secondary-color);
+        border-radius: 25px;
+        padding: 10px;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 5px var(--primary-color);
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 25px;
+        padding: 10px 20px;
+        width: 100%;
+        font-weight: bold;
+    }
+
+    .btn-primary:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-secondary {
+        border-radius: 25px;
+        padding: 10px 20px;
+    }
+
+    /* Espacement entre les champs */
+    .form-group {
+        margin-bottom: 2rem;
+    }
+</style>
+{% endblock %}

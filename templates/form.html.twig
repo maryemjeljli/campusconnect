@@ -1,0 +1,100 @@
+{% extends 'dash/index.html.twig' %}
+
+{% block title %}Gestion des Formations et Types{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+
+    <!-- Section pour Ajouter une Formation -->
+    <div class="mb-5">
+        <h1 class="mb-4">Ajouter une Nouvelle Formation</h1>
+
+        <div class="card shadow">
+            <div class="card-body">
+                {{ form_start(formationForm, {'attr': {'class': 'needs-validation'}}) }}
+
+                <div class="mb-3">
+                    {{ form_label(formationForm.nom, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(formationForm.nom, {'attr': {'class': 'form-control'}}) }}
+                    <div class="text-danger">{{ form_errors(formationForm.nom) }}</div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(formationForm.description, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(formationForm.description, {'attr': {'class': 'form-control'}}) }}
+                    <div class="text-danger">{{ form_errors(formationForm.description) }}</div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(formationForm.lieu, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(formationForm.lieu, {'attr': {'class': 'form-control'}}) }}
+                    <div class="text-danger">{{ form_errors(formationForm.lieu) }}</div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(formationForm.date_debut, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(formationForm.date_debut, {'attr': {'class': 'form-control'}}) }}
+                    <div class="text-danger">{{ form_errors(formationForm.date_debut) }}</div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(formationForm.date_fin, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(formationForm.date_fin, {'attr': {'class': 'form-control'}}) }}
+                    <div class="text-danger">{{ form_errors(formationForm.date_fin) }}</div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(formationForm.cout, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(formationForm.cout, {'attr': {'class': 'form-control'}}) }}
+                    <div class="text-danger">{{ form_errors(formationForm.cout) }}</div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(formationForm.formateur, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(formationForm.formateur, {'attr': {'class': 'form-control'}}) }}
+                    <div class="text-danger">{{ form_errors(formationForm.formateur) }}</div>
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(formationForm.typeformation, null, {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(formationForm.typeformation, {'attr': {'class': 'form-control'}}) }}
+                    <div class="text-danger">{{ form_errors(formationForm.typeformation) }}</div>
+                </div>
+
+                <!-- Boutons -->
+                <div class="d-flex justify-content-between">
+                    <a href="{{ path('app_afficherformation') }}" class="btn btn-secondary">Retour</a>
+                    <button class="btn btn-primary" type="submit">Enregistrer</button>
+                </div>
+
+                {{ form_end(formationForm) }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Section pour Ajouter un Type de Formation -->
+    <div>
+        <h1 class="mb-4">Ajouter un Type de Formation</h1>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white text-center">
+                <h2 class="text-white">Type de Formation</h2>
+            </div>
+            <div class="card-body">
+                {{ form_start(typeForm, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+                    <div class="form-group">
+                        {{ form_label(typeForm.libelle, 'Libellé du Type de Formation', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(typeForm.libelle, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le libellé'}}) }}
+                        {{ form_errors(typeForm.libelle) }}
+                    </div>
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary px-4">Ajouter</button>
+                        <a href="{{ path('app_afficherformation') }}" class="btn btn-secondary px-4">Retour à la liste</a>
+                    </div>
+                {{ form_end(typeForm) }}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

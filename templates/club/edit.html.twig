@@ -1,0 +1,126 @@
+
+{% extends 'dash/index.html.twig' %}
+
+
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Modifier un Club</h1>
+
+    <div class="form-container">
+        {{ form_start(form) }}
+        <div class="form-group mb-3">
+            {{ form_label(form.nom, 'Nom du Club', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.nom) }}
+        </div>
+        <div class="form-group mb-3">
+            {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.description) }}
+        </div>
+        <div class="form-group mb-3">
+            {{ form_label(form.date_de_creation, 'Date de Création', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.date_de_creation, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.date_de_creation) }}
+        </div>
+        <div class="form-group mb-3">
+            {{ form_label(form.type, 'Type de Club', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.type) }}
+        </div>
+        <button type="submit" class="btn btn-success w-100">Enregistrer les modifications</button>
+        {{ form_end(form) }}
+    </div>
+</div>
+
+<style>
+    /* Couleurs principales */
+    :root {
+        --primary-color: #5a3e92; /* Violet */
+        --secondary-color: #3ec6e7; /* Bleu turquoise */
+        --background-color: #f9f9fc; /* Couleur de fond légère */
+        --text-color-dark: #333; /* Texte sombre */
+        --error-color: #d9534f; /* Rouge pour les erreurs */
+    }
+
+    /* Conteneur principal */
+    .container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        background-color: var(--background-color);
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Conteneur du formulaire */
+    .form-container {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border: 2px solid var(--primary-color);
+    }
+
+    /* Titres */
+    h1 {
+        font-family: 'Arial', sans-serif;
+        font-weight: bold;
+        color: var(--primary-color);
+        text-align: center;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Champs du formulaire */
+    .form-control {
+        border: 2px solid var(--secondary-color);
+        border-radius: 25px;
+        padding: 10px;
+        font-size: 14px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 5px var(--primary-color);
+        outline: none;
+    }
+
+    /* Labels */
+    .form-label {
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-bottom: 5px;
+    }
+
+    /* Bouton principal */
+    .btn-success {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: #ffffff;
+        font-size: 16px;
+        padding: 10px;
+        font-weight: bold;
+        border-radius: 25px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        width: 100%;
+    }
+
+    .btn-success:hover {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Messages d'erreur */
+    .form-errors {
+        color: var(--error-color);
+        font-size: 12px;
+    }
+</style>
+
+
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'HOME.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<section class="job-section job-featured-section section-padding">
+    <div class="container">
+        <!-- Barre de recherche -->
+        <div class="row mb-5">
+            <div class="col-lg-6 col-12 text-center mx-auto mb-4">
+                <h2>Trouver un stage</h2>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-lg-12">
+                <form method="get" action="{{ path('app_homestage') }}">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="domaineSearch">Rechercher par domaine</label>
+                            <input type="text" class="form-control" id="domaineSearch" name="domaine" placeholder="Ex: Informatique">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="localisationSearch">Rechercher par localisation</label>
+                            <input type="text" class="form-control" id="localisationSearch" name="localisation" placeholder="Ex: Paris">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Rechercher</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Liste des stages -->
+        <div class="row">
+            <div class="col-lg-6 col-12 text-center mx-auto mb-4">
+                <h2>Stages Disponibles</h2>
+                <p><strong>Trouvez le stage qui vous correspond !</strong></p>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Liste des stages -->
+            <div class="col-lg-8">
+                <div class="row">
+                    {% for stage in stages %}
+                        <div class="col-lg-6 col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h4 class="card-title">{{ stage.titre }}</h4>
+                                    <h5>Domaine : {{ stage.domaine }}</h5>
+                                    <p class="card-text">{{ stage.description }}</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Entreprise : {{ stage.entreprise }}</small><br>
+                                    <small class="text-muted">Localisation : {{ stage.localisation }}</small><br>
+                                    <small class="text-muted">Début : {{ stage.datededebut ? stage.datededebut|date('d-m-Y') : 'N/A' }}</small><br>
+                                    <small class="text-muted">Fin : {{ stage.datedefin ? stage.datedefin|date('d-m-Y') : 'N/A' }}</small><br>
+                                    <a href="{{ path('app_homestage', { stage_id: stage.id }) }}" class="btn btn-primary mt-2">Postuler</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p class="text-center">Aucun stage disponible pour le moment.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Formulaire de candidature -->
+            {% if selectedStage is defined and selectedStage is not null %}
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Postuler pour : {{ selectedStage.titre }}</h4>
+                            <p><strong>Entreprise :</strong> {{ selectedStage.entreprise }}</p>
+                            <p><strong>Localisation :</strong> {{ selectedStage.localisation }}</p>
+                            <p><strong>Description :</strong> {{ selectedStage.description }}</p>
+
+                            {{ form_start(form) }}
+                                <!-- Champ Nom -->
+                                <div class="form-group">{{ form_row(form.nom) }}</div>
+                                
+                                <!-- Champ Email -->
+                                <div class="form-group">{{ form_row(form.email) }}</div>
+                                
+                                <!-- Champ Numéro de téléphone -->
+                                <div class="form-group">{{ form_row(form.phone) }}</div>
+                                
+                                <!-- Champ Formation -->
+                                <div class="form-group">{{ form_row(form.formation) }}</div>
+                                
+                                <!-- Champ Expériences académiques -->
+                                <div class="form-group">{{ form_row(form.experiences_academiques) }}</div>
+                                
+                                <!-- Champ Compétences -->
+                                <div class="form-group">{{ form_row(form.competences) }}</div>
+                                
+                                <!-- Champ Lettre de motivation -->
+                                <div class="form-group">{{ form_row(form.lettre_motivation) }}</div>
+                                
+                                <!-- Bouton Soumettre -->
+                                <div class="text-center mt-4">
+                                    <button type="submit" class="btn btn-success">Soumettre ma candidature</button>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
